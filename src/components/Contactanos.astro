@@ -1,0 +1,36 @@
+---
+import { contenidoContactanos } from '../data/contenidoContactanos.js';
+const { titulo,descripcion,datos } = contenidoContactanos;
+---
+
+<section class="Contactanos">
+    <section class="Izquierda">
+        <div class="contenedor-titulos-contactanos">
+            <h3 class="titulo">{titulo}</h3>
+            <hr>
+            <p class="descripcion">{descripcion}</p>
+            <div class="datos-contacto">
+                {Object.entries(datos).map(([key, dato]) => (
+                    <div class="dato-card">
+                        <img 
+                            src={dato.icono} 
+                            alt={dato.alt}
+                            class="dato-icono"
+                        />
+                        <p class="dato-texto">{dato.texto}</p>
+                    </div>
+                ))}
+            </div>
+    </section>
+
+    <section class="Derecha">
+        <div class="mapa">
+
+        </div>
+
+    </section>
+</section>
+
+<style>
+    
+</style>

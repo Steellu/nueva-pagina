@@ -26,7 +26,6 @@ const { titulo, descripcion , clientes} = contenidoClientes;
             ))}
         </div>
     </section>
-
 </section>
 
 <style>
@@ -42,24 +41,25 @@ const { titulo, descripcion , clientes} = contenidoClientes;
   }
 
   .Clientes{
-    display:flex;
+    display: flex;
     justify-content: center;
-    gap: 10rem;
+    /* gap: 5rem; */
     background: linear-gradient(to bottom, #1E9BCD 0%, #FFFFFF 49%);
-    padding: 10rem 0rem 10rem 0rem;
+    padding: 10rem 2rem;
+    
   }
 
   .Izquierda{
     display: flex;
     flex-direction: column;
-    align-content: center ;
+    align-content: center;
     padding-top: 5rem;
     max-width: 600px;
+    flex: 1;
   }
 
   .contenedor-titulos-clientes{
     margin-right: 5rem;
-
   }
 
   .titulo-mini{
@@ -68,7 +68,6 @@ const { titulo, descripcion , clientes} = contenidoClientes;
     font-size: 2rem;
     font-weight: lighter;
     margin: 0;
-
   }
 
   .titulo-principal{
@@ -90,8 +89,6 @@ const { titulo, descripcion , clientes} = contenidoClientes;
     font-family: var(--font-principal);
     font-size: 0.8rem;
     color: var(--color-descripcion);
-    /* margin-top: 1rem; */
-    /* line-height: 1.5; */
   }
 
   .Derecha{
@@ -100,49 +97,138 @@ const { titulo, descripcion , clientes} = contenidoClientes;
     justify-content: center;
     padding-top: 5rem;
     max-width: 800px;
-
+    flex: 1;
   }
 
   .clientes-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 columnas iguales */
-    grid-template-rows: 1fr 1fr;    /* 2 filas iguales */
-    gap: 0px; /* línea divisoria muy fina */
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px;
     width: 100%;
-    max-width: 600px; /* ajusta según necesites */
-    height: 400px; /* ajusta según necesites */
-    border: 1px solid #ddd; /* borde exterior */
-
+    max-width: 600px;
+    height: 400px;
+    border: 1px solid #ddd;
   }
 
-   .clientes-card {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     background-color: #f8f9fa; /* fondo gris claro */
-     padding: 20px;
-     border: 1px solid #ddd; /* borde de cada celda */
-
+  .clientes-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #ddd;
   }
 
-   .clientes-icono {
-     max-width: 350px; /* ajusta el tamaño máximo */
-     max-height: 80px;
-     width: auto;
-     height: auto;
-     object-fit: contain; /* mantiene proporciones */
-     
+  .clientes-icono {
+    max-width: 350px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
   }
 
-  .servicio-card{
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto;
-    gap: 10px 15px;
-  }
- 
-
+  /* Media Queries para Responsividad */
   
+  /* Tablets */
+  @media (max-width: 1024px) {
+    .Clientes {
+      gap: 5rem;
+      padding: 8rem 2rem;
+    }
+    
+    .titulo-principal {
+      font-size: 2.8rem;
+    }
+    
+    .contenedor-titulos-clientes {
+      margin-right: 2rem;
+    }
+  }
 
+  /* Móviles y pantallas pequeñas */
+  @media (max-width: 768px) {
+    .Clientes {
+      flex-direction: column;
+      gap: 3rem;
+      padding: 5rem 1rem;
+    }
+    
+    .Izquierda {
+      padding-top: 0;
+      max-width: 100%;
+      text-align: center;
+    }
+    
+    .contenedor-titulos-clientes {
+      margin-right: 0;
+    }
+    
+    .titulo-mini {
+      font-size: 1.5rem;
+    }
+    
+    .titulo-principal {
+      font-size: 2.2rem;
+    }
+    
+    .descripcion {
+      font-size: 0.9rem;
+    }
+    
+    hr {
+      margin: 1rem auto;
+    }
+    
+    .Derecha {
+      padding-top: 0;
+      max-width: 100%;
+    }
+    
+    .clientes-grid {
+      grid-template-columns: 1fr; /* Una sola columna */
+      grid-template-rows: repeat(4, 1fr); /* 4 filas */
+      height: auto;
+      max-width: 400px;
+    }
+    
+    .clientes-card {
+      padding: 15px;
+      min-height: 100px;
+    }
+    
+    .clientes-icono {
+      max-width: 250px;
+      max-height: 60px;
 
+    }
+  }
 
+  /* Móviles muy pequeños */
+  @media (max-width: 480px) {
+    .Clientes {
+      padding: 3rem 1rem;
+    }
+    
+    .titulo-mini {
+      font-size: 1.2rem;
+    }
+    
+    .titulo-principal {
+      font-size: 1.8rem;
+    }
+    
+    .descripcion {
+      font-size: 0.8rem;
+    }
+    
+    .clientes-grid {
+      max-width: 300px;
+    }
+    
+    .clientes-icono {
+      max-width: 200px;
+      max-height: 50px;
+    }
+  }
+</style>

@@ -1,6 +1,6 @@
 export const contenidoPortada = {
   logo: {
-    src: '/imagenes/portada/steel-logo.png',
+    src: '/imagenes/portada/steel-logo.webp',
     alt: 'Logo de Steel RV - Fundición de Metales',
     ancho: 540,
     alto: 'auto'

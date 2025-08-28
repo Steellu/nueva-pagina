@@ -9,22 +9,22 @@ export const contenidoClientes = {
     clientes:{
         cliente_1: {
             nombre: 'MEPSA',
-            logo: '/imagenes/clientes/mepsa.png',
+            logo: '/imagenes/clientes/mepsa.webp',
             alt: 'Logo de Mepsa - Cliente de Steel RV'
         },
         cliente_2: {
             nombre: 'METSO',
-            logo: '/imagenes/clientes/fucsa.png',
+            logo: '/imagenes/clientes/fucsa.webp',
             alt: 'Logo de Fucsa - Cliente de Steel RV'
         },
         cliente_3: {
             nombre: 'FUCSA',
-            logo: '/imagenes/clientes/metso.png',
+            logo: '/imagenes/clientes/metso.webp',
             alt: 'Logo de Metso - Cliente de Steel RV'
         },
         cliente_4: {
             nombre: 'COMESA',
-            logo: '/imagenes/clientes/comesa.png',
+            logo: '/imagenes/clientes/comesa.webp',
             alt: 'Logo de Comesa - Cliente de Steel RV'
         }
     }
