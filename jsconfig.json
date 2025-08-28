@@ -1,0 +1,13 @@
+{
+  "extends": "astro/tsconfigs/base",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "target": "es2022",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
+}

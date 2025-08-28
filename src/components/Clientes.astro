@@ -1,0 +1,148 @@
+---
+import { contenidoClientes } from '../data/contenidoClientes.js';
+
+const { titulo, descripcion , clientes} = contenidoClientes;
+---
+
+<section class="Clientes">
+    <section class="Izquierda">
+        <div class="contenedor-titulos-clientes">
+            <h3 class="titulo-mini">{titulo.mini}</h3>
+            <h1 class="titulo-principal">{titulo.principal}</h1>
+            <hr>
+            <p class="descripcion">{descripcion.texto}</p>
+        </div>
+    </section>
+    <section class="Derecha">
+        <div class="clientes-grid">
+            {Object.entries(contenidoClientes.clientes).map(([key, cliente]) => (
+                <div class="clientes-card">
+                <img 
+                    src={cliente.logo} 
+                    alt={cliente.alt}
+                    class="clientes-icono"
+                />
+                </div>
+            ))}
+        </div>
+    </section>
+
+</section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+  :root {
+    --color-primario: #1A4EB0;
+    --color-secundario: #FFFFFF;
+    --color-acento: #FF5733;
+    --color-descripcion: #7E7C7C;
+    --color-texto: #222222;
+    --font-principal: 'Roboto Condensed', sans-serif;
+  }
+
+  .Clientes{
+    display:flex;
+    justify-content: center;
+    gap: 10rem;
+    background: linear-gradient(to bottom, #1E9BCD 0%, #FFFFFF 49%);
+    padding: 10rem 0rem 10rem 0rem;
+  }
+
+  .Izquierda{
+    display: flex;
+    flex-direction: column;
+    align-content: center ;
+    padding-top: 5rem;
+    max-width: 600px;
+  }
+
+  .contenedor-titulos-clientes{
+    margin-right: 5rem;
+
+  }
+
+  .titulo-mini{
+    color: var(--color-primario);
+    font-family: var(--font-principal);
+    font-size: 2rem;
+    font-weight: lighter;
+    margin: 0;
+
+  }
+
+  .titulo-principal{
+    font-family: var(--font-principal);
+    font-size: 3.2rem;
+    color: var(--color-texto);
+    font-weight: bold;
+    margin: 0;
+  }
+
+  hr{
+    border: 1px solid var(--color-primario);
+    width: 180px;
+    margin: 1rem 0;
+    align: left;
+  }
+
+  .descripcion{
+    font-family: var(--font-principal);
+    font-size: 0.8rem;
+    color: var(--color-descripcion);
+    /* margin-top: 1rem; */
+    /* line-height: 1.5; */
+  }
+
+  .Derecha{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5rem;
+    max-width: 800px;
+
+  }
+
+  .clientes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columnas iguales */
+    grid-template-rows: 1fr 1fr;    /* 2 filas iguales */
+    gap: 0px; /* línea divisoria muy fina */
+    width: 100%;
+    max-width: 600px; /* ajusta según necesites */
+    height: 400px; /* ajusta según necesites */
+    border: 1px solid #ddd; /* borde exterior */
+
+  }
+
+   .clientes-card {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: #f8f9fa; /* fondo gris claro */
+     padding: 20px;
+     border: 1px solid #ddd; /* borde de cada celda */
+
+  }
+
+   .clientes-icono {
+     max-width: 350px; /* ajusta el tamaño máximo */
+     max-height: 80px;
+     width: auto;
+     height: auto;
+     object-fit: contain; /* mantiene proporciones */
+     
+  }
+
+  .servicio-card{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px 15px;
+  }
+ 
+
+  
+
+
+

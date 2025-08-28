@@ -1,0 +1,190 @@
+---
+import { contenidoPortada } from '../data/contenidoPortada.js';
+
+const { logo, video, mensajes, empresa } = contenidoPortada;
+---
+
+<section class="portada-principal">
+  <div class="video-fondo">
+    <video 
+      autoplay 
+      muted 
+      loop 
+      playsinline
+      poster={video.poster}
+    >
+      <source src={video.src} type={video.tipo}>
+      Tu navegador no soporta videos HTML5.
+    </video>
+  </div>
+  
+  <div class="overlay-contenido">
+    <div class="contenedor-portada">
+      <div class="logo-empresa">
+        <img 
+          src={logo.src} 
+          alt={logo.alt}
+          width={logo.ancho}
+          height={logo.alto}
+        />
+      </div>
+      
+      <div class="mensajes-portada">
+        <h2 class="mensaje-principal">{mensajes.principal}</h2>
+        <p class="mensaje-secundario">{mensajes.secundario}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+  .portada-principal {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #0F4E67;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .video-fondo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .video-fondo video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .overlay-contenido {
+    position: relative;
+    z-index: 2;
+    /* background-color: rgba(15, 78, 103, 0.8); */
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contenedor-portada {
+    text-align: center;
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+    max-width: 1200px;
+    padding: 2rem;
+  }
+
+  .logo-empresa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+
+  .logo-empresa img {
+    margin-bottom: 1rem;
+    max-width: 340px;
+    height: auto;
+  }
+
+
+  .mensajes-portada {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .mensaje-principal {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    color: white;
+  }
+
+  .mensaje-secundario {
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.4;
+    margin: 0;
+    color: white;
+    opacity: 0.9;
+  }
+
+  /* Responsivo para tablets */
+  @media screen and (max-width: 1024px) {
+    .contenedor-portada {
+      padding: 1.5rem;
+    }
+
+    .nombre-empresa {
+      font-size: 2rem;
+    }
+
+
+    .mensaje-principal {
+      font-size: 2.5rem;
+    }
+
+    .mensaje-secundario {
+      font-size: 1.3rem;
+    }
+  }
+
+  /* Responsivo para móviles */
+  @media screen and (max-width: 768px) {
+    .contenedor-portada {
+      padding: 1rem;
+    }
+
+    .logo-empresa {
+      margin-bottom: 2rem;
+    }
+
+    .logo-empresa img {
+      max-width: 400px;
+    }
+
+
+    .mensaje-principal {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .mensaje-secundario {
+      font-size: 1.1rem;
+    }
+  }
+
+  /* Responsivo para móviles pequeños */
+  @media screen and (max-width: 480px) {
+    .contenedor-portada {
+      padding: 0.8rem;
+    }
+
+    .logo-empresa img {
+      max-width: 300px;
+    }
+
+
+    .mensaje-principal {
+      font-size: 1.8rem;
+      line-height: 1.1;
+    }
+
+    .mensaje-secundario {
+      font-size: 1rem;
+    }
+  }
+</style>
