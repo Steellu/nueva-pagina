@@ -1,9 +1,9 @@
 export const contenidoContactanos = {
     titulo: 'Contáctanos',
-    descripcion: 'Estamos aquí para ayudarte. Completa el formulario y nos pondremos en contacto contigo lo antes posible.',
+    descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     datos:{
         email:{
-            icono: '/imagenes/contactanos/email.webp',
+            icono: '/imagenes/contactanos/correo.webp',
             alt: 'Icono de email',
             titulo: 'Email',
             texto: 'steeljrv@gmail.com',
@@ -17,9 +17,14 @@ export const contenidoContactanos = {
         direccion:{
             icono: '/imagenes/contactanos/direccion.webp',
             alt: 'Icono de dirección',
-            titulo: 'Dirección',
-            texto: 'Av. Santa Ana Lte. 95 Chacra Cerro - Comas (Referencia: Av. Trapiche, Colegio Hideyo Noguchi) Zona Industrial | Jr. Las Fresas Mz. "J" Lte. 15-B Urb. Industrial Infantas - Los Olivos (Referencia: Espalda del Hospital Municipal de los Olivos'
-            // texto_2: 'Jr. Las Fresas Mz. "J" Lte. 15-B Urb. Industrial Infantas - Los Olivos (Referencia: Espalda del Hospital Municipal de los Olivos)',
+            titulo: 'Sede Comas',
+            texto: 'Av. Santa Ana Lte. 95 Chacra Cerro - Comas (Referencia: Av. Trapiche, Colegio Hideyo Noguchi) Zona Industrial'
+        },
+        direccion2:{
+            icono: '/imagenes/contactanos/direccion.webp',
+            alt: 'Icono de direccion',
+            titulo: 'Sede Los Olivos',
+            texto: 'Jr. Las Fresas Mz. "J" Lte. 15-B Urb. Industrial Infantas - Los Olivos (Referencia: Espalda del Hospital Municipal de los Olivos)',
         },
         horario:{
             icono: '/imagenes/contactanos/horario.webp',

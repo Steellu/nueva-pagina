@@ -17,6 +17,7 @@ const { titulo,descripcion,datos } = contenidoContactanos;
                             alt={dato.alt}
                             class="dato-icono"
                         />
+                        <h3 class="dato-titulo">{dato.titulo}</h3>
                         <p class="dato-texto">{dato.texto}</p>
                     </div>
                 ))}
@@ -24,13 +25,129 @@ const { titulo,descripcion,datos } = contenidoContactanos;
     </section>
 
     <section class="Derecha">
-        <div class="mapa">
-
+        <div class="contenedor-mapa">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d15614.918358526555!2d-77.07533405!3d-11.9426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x9105cf002429fa97%3A0xf7ffc9c1f6c4a546!2sSTEEL%20JRV%20SAC%20LOS%20OLIVOS%2C%20Peru!3m2!1d-11.973730140496622!2d-77.06455428916962!4m5!1s0x9105d1aa5237914d%3A0xf323092fa6f3b1b4!2sSteel%20JRV%2C%20Peru!3m2!1d-11.911545309339271!2d-77.06533405487312!5e0!3m2!1ses!2spe!4v1756503080124!5m2!1ses!2spe" 
+                width="640" 
+                height="480" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
         </div>
-
     </section>
 </section>
 
 <style>
-    
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+    :root {
+        --color-primario: #1A4EB0;
+        --color-secundario: #FFFFFF;
+        --color-acento: #DF7F10;
+        --color-descripcion: #4C4949;
+        --color-texto: #222222;
+        --font-principal: 'Roboto Condensed', sans-serif;
+    }
+
+    .Contactanos{
+        display: flex;
+        justify-content: center;
+        padding: 4rem 2rem;
+        gap: 10rem;
+        background-color: var(--color-secundario);
+    }
+
+    .Izquierda{
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        max-width: 600px;
+    }
+
+    .contenedor-titulos-contactanos{
+        margin-bottom: 2rem;
+    }
+
+    .titulo{
+        font-size: 3.2rem;
+        font-family: var(--font-principal);
+        margin: 0;
+    }
+
+    hr{
+        border: 1px solid var(--color-primario);
+        width: 250px;
+        margin: 1rem 0;
+        align: left;
+    }
+
+    .descripcion{
+        font-family: var(--font-principal);
+        font-size: 1.2rem;
+        color: var(--color-descripcion);
+        line-height: 1.5;
+    }
+
+    .datos-contacto{
+        display: grid;
+        flex-direction: column;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .dato-card{
+        display: grid;
+        flex-direction: column;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto;
+        gap: 10px 15px;
+    }
+
+    .dato-icono{
+        grid-row: 1 / 3;
+        width: 40px;
+        height: auto;
+    }
+
+    .dato-titulo{
+        grid-column: 2;
+        grid-row: 1;
+        margin: 0;
+        font-family: var(--font-principal);
+        font-size: 1.25rem;
+        color: var(--color-acento);
+        font-weight: bold;
+
+    }
+
+    .dato-texto{
+        grid-column: 2;
+        grid-row: 2;
+        margin: 0;
+        font-family: var(--font-principal);
+        font-size: 1rem;
+        color: var(--color-descripcion);
+        font-weight: bold;
+    }
+
+    .Derecha{
+        display: flex;
+        /* flex-direction: column; */
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+
+    }
+
+    .contenedor-mapa{
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        width: 100%;
+        /* max-width: 400px; */
+        height: auto;
+
+    }
 </style>
