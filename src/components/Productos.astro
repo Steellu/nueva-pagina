@@ -1,0 +1,532 @@
+---
+import { contenidoProductos } from '../data/contenidoProductos.js';
+---
+
+<section class="productos-destacados">
+    <div class="container">
+        <div class="header">
+            <h2>{contenidoProductos.titulo}</h2>
+            <p>{contenidoProductos.descripcion}</p>
+        </div>
+        
+        <div class="slider-container">
+            <div class="slider-wrapper">
+                <div class="productos-slider" id="productosSlider">
+                    {contenidoProductos.productos.map((producto) => (
+                        <div class="producto-card">
+                            <div class="producto-content">
+                                <div class="producto-imagen">
+                                    <img src={producto.imagen} alt={producto.nombre} loading="lazy" />
+                                </div>
+                                <div class="producto-info">
+                                    <div class="producto-categoria">
+                                        <span class="categoria-tag">{producto.categoria}</span>
+                                    </div>
+                                    <h3 class="producto-titulo">{producto.nombre}</h3>
+                                    <p class="producto-descripcion">{producto.descripcion}</p>
+                                    
+                                    <div class="producto-detalles">
+                                        {producto.detalles.map((detalle) => (
+                                            <div class="detalle-item">
+                                                <div class="detalle-icono">
+                                                    {/* <i class={detalle.icono}></i> */}
+                                                    <img src={detalle.icono} alt="">
+                                                </div>
+                                                <div class="detalle-contenido">
+                                                    <h4>{detalle.titulo}</h4>
+                                                    <span>{detalle.valor}</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            
+            <div class="slider-controls">
+                <button class="slider-btn prev" id="prevBtn" aria-label="Producto anterior">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <button class="slider-btn next" id="nextBtn" aria-label="Siguiente producto">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="slider-dots" id="sliderDots">
+                {contenidoProductos.productos.map((_, index) => (
+                    <button class={`dot ${index === 0 ? 'active' : ''}`} data-slide={index}></button>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+    :root {
+        
+        --font-principal: 'Roboto Condensed', sans-serif;
+    }
+
+    .productos-destacados {
+        padding: 80px 20px;
+        /* background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); */
+        background: linear-gradient(to bottom, #0F4E67 0%, #1E9BCD 100%);
+        min-height: 600px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .header h2 {
+        font-family: var(--font-principal);
+        font-size: 3.2rem;
+        font-weight: 700;
+        /* color: #2c3e50; */
+        color: #FFFFFF;
+        margin: 0 0 15px 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .header p {
+        font-family: var(--font-principal);
+        font-size: 1.1rem;
+        color: #FFFFFF;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .slider-container {
+        position: relative;
+    }
+
+    .slider-wrapper {
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .productos-slider {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        width: 100%;
+    }
+
+    .producto-card {
+        min-width: 100%;
+        aspect-ratio: 16/9;
+        /* background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); */
+        background: linear-gradient(to bottom, #092F3E 0%, #187CA4 100%);
+        /* background: #092F3E; */
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .producto-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        height: 100%;
+        align-items: center;
+        gap: 40px;
+        /* padding: 40px; */
+    }
+
+    .producto-imagen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .producto-imagen img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        transition: transform 0.3s ease;
+    }
+
+    .producto-imagen img:hover {
+        transform: scale(1.05);
+    }
+
+    .producto-info {
+        color: white;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0px 40px;
+    }
+
+    .producto-categoria {
+        margin-bottom: 20px;
+    }
+
+    .categoria-tag {
+        background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        font-family: var(--font-principal);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+    }
+
+    .producto-titulo {
+        font-family: var(--font-principal);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 0 15px 0;
+        color: #4fc3f7;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .producto-descripcion {
+        font-family: var(--font-principal);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 0 0 25px 0;
+        color: #ecf0f1;
+        opacity: 0.9;
+    }
+
+    .producto-detalles {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px 20px;
+    }
+
+    .detalle-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .detalle-icono {
+        width: 40px;
+        height: 40px;
+        /* background: rgba(255, 255, 255, 0.1); */
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* color: #4fc3f7; */
+        /* border: 1px solid rgba(79, 195, 247, 0.3); */
+    }
+
+    .detalle-icono i {
+        font-size: 18px;
+    }
+
+    .detalle-contenido h4 {
+        font-family: var(--font-principal);
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0 0 4px 0;
+        color: #4fc3f7;
+    }
+
+    .detalle-contenido span {
+        font-family: var(--font-principal);
+        font-size: 1rem;
+        color: #ecf0f1;
+        opacity: 0.8;
+    }
+
+    .slider-controls {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 20 20px;
+        pointer-events: none;
+    }
+
+    .slider-btn {
+        width: 50px;
+        height: 50px;
+        background: #ff6b35;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #2c3e50;
+        transition: all 0.3s ease;
+        pointer-events: auto;
+        /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
+    }
+
+    .slider-btn:hover {
+        background: white;
+        transform: scale(1.1);
+        color: #ff6b35;
+    }
+
+    .slider-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: scale(1);
+    }
+
+    .slider-dots {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 30px;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: none;
+        background: #bdc3c7;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .dot.active,
+    .dot:hover {
+        background: #ff6b35;
+        transform: scale(1.2);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .productos-destacados {
+            padding: 60px 15px;
+        }
+
+        .producto-content {
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .producto-titulo {
+            font-size: 2rem;
+        }
+
+        .header h2 {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .productos-destacados {
+            padding: 40px 10px;
+        }
+
+        .producto-content {
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .producto-imagen {
+            order: 1;
+            height: 200px;
+        }
+
+        .producto-info {
+            order: 2;
+        }
+
+        .producto-titulo {
+            font-size: 1.8rem;
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+        }
+
+        .producto-detalles {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .slider-controls {
+            padding: 10 10px;
+        }
+
+        .slider-btn {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .producto-content {
+            padding: 15px;
+        }
+
+        .producto-titulo {
+            font-size: 1.5rem;
+        }
+
+        .header h2 {
+            font-size: 1.5rem;
+        }
+
+        .detalle-item {
+            gap: 8px;
+        }
+
+        .detalle-icono {
+            width: 35px;
+            height: 35px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slider = document.getElementById('productosSlider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dots = document.querySelectorAll('.dot');
+        
+        if (!slider || !prevBtn || !nextBtn) return;
+
+        let currentSlide = 0;
+        const totalSlides = slider.children.length;
+
+        function updateSlider() {
+            const translateX = -currentSlide * 100;
+            slider.style.transform = `translateX(${translateX}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+            
+            // Update button states
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlider();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlider();
+            }
+        }
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateSlider();
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => goToSlide(index));
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Touch/swipe support
+        let startX = 0;
+        let isDragging = false;
+
+        slider.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        slider.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+        });
+
+        slider.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            
+            if (Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        });
+
+        // Initialize
+        updateSlider();
+
+        // Auto-play (optional)
+        let autoplayInterval;
+        const startAutoplay = () => {
+            autoplayInterval = setInterval(() => {
+                if (currentSlide === totalSlides - 1) {
+                    currentSlide = 0;
+                } else {
+                    currentSlide++;
+                }
+                updateSlider();
+            }, 5000);
+        };
+
+        const stopAutoplay = () => {
+            clearInterval(autoplayInterval);
+        };
+
+        // Pause autoplay on hover
+        slider.addEventListener('mouseenter', stopAutoplay);
+        slider.addEventListener('mouseleave', startAutoplay);
+
+        // Start autoplay
+        startAutoplay();
+    });
+</script>
+
+
