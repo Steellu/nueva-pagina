@@ -18,13 +18,13 @@ export const contenidoContactanos = {
             icono: '/imagenes/contactanos/direccion.webp',
             alt: 'Icono de dirección',
             titulo: 'Sede Comas',
-            texto: 'Av. Santa Ana Lte. 95 Chacra Cerro - Comas (Referencia: Av. Trapiche, Colegio Hideyo Noguchi) Zona Industrial'
+            texto: 'Av. Santa Ana Lte. 95 Chacra Cerro - Comas'
         },
         direccion2:{
             icono: '/imagenes/contactanos/direccion.webp',
             alt: 'Icono de direccion',
             titulo: 'Sede Los Olivos',
-            texto: 'Jr. Las Fresas Mz. "J" Lte. 15-B Urb. Industrial Infantas - Los Olivos (Referencia: Espalda del Hospital Municipal de los Olivos)',
+            texto: 'Jr. Las Fresas Mz. "J" Lte. 15-B Urb. Industrial Infantas - Los Olivos',
         },
         horario:{
             icono: '/imagenes/contactanos/horario.webp',
