@@ -4,152 +4,200 @@ const { titulo,descripcion,datos } = contenidoContactanos;
 ---
 
 <section class="Contactanos">
-    <section class="Izquierda">
-        <div class="contenedor-titulos-contactanos" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">
-            <h3 class="titulo">{titulo}</h3>
-            <hr>
-            <p class="descripcion">{descripcion}</p>
-            <div class="datos-contacto">
-                {Object.entries(datos).map(([key, dato]) => (
-                    <div class="dato-card">
-                        <img 
-                            src={dato.icono} 
-                            alt={dato.alt}
-                            class="dato-icono"
-                        />
-                        <h3 class="dato-titulo">{dato.titulo}</h3>
-                        <p class="dato-texto">{dato.texto}</p>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
+  <section class="Izquierda">
+    <div class="contenedor-titulos-contactanos" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">
+      <h3 class="titulo">{titulo}</h3>
+      <hr />
+      <p class="descripcion">{descripcion}</p>
+      <div class="datos-contacto">
+        {Object.entries(datos).map(([key, dato]) => (
+          <div class="dato-card">
+            <img 
+              src={dato.icono} 
+              alt={dato.alt}
+              class="dato-icono"
+            />
+            <h3 class="dato-titulo">{dato.titulo}</h3>
+            <p class="dato-texto">{dato.texto}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-    <section class="Derecha">
-        <div class="contenedor-mapa" data-aos="fade-left" data-aos-offset="300" data-aos-easing="ease-in-sine">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d15614.918358526555!2d-77.07533405!3d-11.9426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x9105cf002429fa97%3A0xf7ffc9c1f6c4a546!2sSTEEL%20JRV%20SAC%20LOS%20OLIVOS%2C%20Peru!3m2!1d-11.973730140496622!2d-77.06455428916962!4m5!1s0x9105d1aa5237914d%3A0xf323092fa6f3b1b4!2sSteel%20JRV%2C%20Peru!3m2!1d-11.911545309339271!2d-77.06533405487312!5e0!3m2!1ses!2spe!4v1756503080124!5m2!1ses!2spe" 
-                width="640" 
-                height="480" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-    </section>
+  <section class="Derecha">
+    <div class="contenedor-mapa" data-aos="fade-left" data-aos-offset="300" data-aos-easing="ease-in-sine">
+      <div class="mapa-aspect-ratio">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d15614.918358526555!2d-77.07533405!3d-11.9426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x9105cf002429fa97%3A0xf7ffc9c1f6c4a546!2sSTEEL%20JRV%20SAC%20LOS%20OLIVOS%2C%20Peru!3m2!1d-11.973730140496622!2d-77.06455428916962!4m5!1s0x9105d1aa5237914d%3A0xf323092fa6f3b1b4!2sSteel%20JRV%2C%20Peru!3m2!1d-11.911545309339271!2d-77.06533405487312!5e0!3m2!1ses!2spe!4v1756503080124!5m2!1ses!2spe" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
 </section>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
 
-    :root {
-        --color-primario: #1A4EB0;
-        --color-secundario: #FFFFFF;
-        --color-acento: #DF7F10;
-        --color-descripcion: #4C4949;
-        --color-texto: #222222;
-        --font-principal: 'Roboto Condensed', sans-serif;
+  :root {
+    --color-primario: #1A4EB0;
+    --color-secundario: #FFFFFF;
+    --color-acento: #DF7F10;
+    --color-descripcion: #4C4949;
+    --color-texto: #222222;
+    --font-principal: 'Roboto Condensed', sans-serif;
+
+    --container-max: 1200px;
+    --gap-xl: 4rem;
+    --gap-lg: 3rem;
+    --gap-md: 2rem;
+    --gap-sm: 1rem;
+  }
+
+  .Contactanos{
+    display: flex;
+    flex-wrap: wrap; /* Permite que baje a una columna en pantallas pequeñas */
+    justify-content: center;
+    gap: var(--gap-lg);
+    padding: 4rem 1.25rem;
+    background-color: var(--color-secundario);
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+
+  /* Dos “columnas” que pueden colapsar a una sola */
+  .Izquierda, .Derecha{
+    flex: 1 1 520px; /* crece, reduce y base ~520px */
+    min-width: 280px;
+  }
+
+  /* Orden: en mobile primero Izquierda, luego Derecha (mapa) */
+  .Izquierda { order: 1; }
+  .Derecha { order: 2; }
+
+  .Izquierda{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    max-width: 700px;
+  }
+
+  .contenedor-titulos-contactanos{
+    margin-bottom: var(--gap-md);
+  }
+
+  .titulo{
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-family: var(--font-principal);
+    color: var(--color-texto);
+    margin: 0;
+  }
+
+  hr{
+    border: 1px solid var(--color-primario);
+    width: 200px;
+    margin: 1rem 0;
+  }
+
+  .descripcion{
+    font-family: var(--font-principal);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    color: var(--color-descripcion);
+    line-height: 1.6;
+    margin-bottom: var(--gap-md);
+  }
+
+  .datos-contacto{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: var(--gap-sm);
+  }
+
+  .dato-card{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px 15px;
+    align-items: center;
+  }
+
+  .dato-icono{
+    grid-row: 1 / 3;
+    width: 40px;
+    height: auto;
+  }
+
+  .dato-titulo{
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    font-family: var(--font-principal);
+    font-size: 1.1rem;
+    color: var(--color-acento);
+    font-weight: 700;
+  }
+
+  .dato-texto{
+    grid-column: 2;
+    grid-row: 2;
+    margin: 0;
+    font-family: var(--font-principal);
+    font-size: 1rem;
+    color: var(--color-descripcion);
+    font-weight: 600;
+  }
+
+  .Derecha{
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+  }
+
+  .contenedor-mapa{
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    background: #fff;
+  }
+
+  /* Intrinsic ratio para que el iframe sea siempre responsive */
+  .mapa-aspect-ratio{
+    position: relative;
+    width: 100%;
+    padding-top: 62.5%; /* 16:10 aprox. Ajusta a 56.25% para 16:9, 75% para 4:3 */
+  }
+  .mapa-aspect-ratio iframe{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* Ajustes responsivos por breakpoints */
+  @media (min-width: 960px) {
+    .Contactanos {
+      gap: var(--gap-xl);
+      padding: 5rem 2rem;
     }
-
-    .Contactanos{
-        display: flex;
-        justify-content: center;
-        padding: 4rem 2rem;
-        gap: 10rem;
-        background-color: var(--color-secundario);
+    .Izquierda, .Derecha {
+      flex: 1 1 0; /* Reparte espacio parejo en escritorio */
     }
+    hr { width: 250px; }
+  }
 
-    .Izquierda{
-        display: flex;
-        flex-direction: column;
-        padding: 1rem;
-        max-width: 600px;
+  @media (max-width: 599px) {
+    .Contactanos {
+      gap: var(--gap-md);
+      padding: 2.5rem 1rem;
     }
-
-    .contenedor-titulos-contactanos{
-        margin-bottom: 2rem;
-    }
-
-    .titulo{
-        font-size: 3.2rem;
-        font-family: var(--font-principal);
-        color: var(--color-texto);
-        margin: 0;
-    }
-
-    hr{
-        border: 1px solid var(--color-primario);
-        width: 250px;
-        margin: 1rem 0;
-        align: left;
-    }
-
-    .descripcion{
-        font-family: var(--font-principal);
-        font-size: 1.2rem;
-        color: var(--color-descripcion);
-        line-height: 1.5;
-    }
-
-    .datos-contacto{
-        display: grid;
-        flex-direction: column;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-    }
-
-    .dato-card{
-        display: grid;
-        flex-direction: column;
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto auto;
-        gap: 10px 15px;
-    }
-
-    .dato-icono{
-        grid-row: 1 / 3;
-        width: 40px;
-        height: auto;
-    }
-
-    .dato-titulo{
-        grid-column: 2;
-        grid-row: 1;
-        margin: 0;
-        font-family: var(--font-principal);
-        font-size: 1.25rem;
-        color: var(--color-acento);
-        font-weight: bold;
-
-    }
-
-    .dato-texto{
-        grid-column: 2;
-        grid-row: 2;
-        margin: 0;
-        font-family: var(--font-principal);
-        font-size: 1rem;
-        color: var(--color-descripcion);
-        font-weight: bold;
-    }
-
-    .Derecha{
-        display: flex;
-        /* flex-direction: column; */
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
-
-    }
-
-    .contenedor-mapa{
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        overflow: hidden;
-        width: 100%;
-        /* max-width: 400px; */
-        height: auto;
-
-    }
+    .dato-icono { width: 34px; }
+    .dato-titulo { font-size: 1.05rem; }
+    .dato-texto { font-size: 0.95rem; }
+  }
 </style>
