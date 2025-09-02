@@ -9,10 +9,94 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Layout titulo="Steel RV - Fundición de Metales | Más de 35 años de experiencia">
+  <div id="custom-cursor"></div>
   <Portada />
   <Servicios />
   <Productos />
   <Clientes />
   <Contactanos />
   <Footer />
+
+  <script>
+    const cursor = document.getElementById("custom-cursor");
+
+    if (cursor) {
+      const interactiveElements = document.querySelectorAll("a, button");
+
+      // Detectar si el dispositivo es táctil y deshabilitar el puntero
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+      if (isTouchDevice) {
+        cursor.style.display = "none"; // Ocultar el puntero personalizado en dispositivos táctiles
+      } else {
+        // Mover el puntero personalizado
+        document.addEventListener("mousemove", (e) => {
+          const { clientX: x, clientY: y } = e;
+          cursor.style.transform = `translate(${x - cursor.offsetWidth / 2}px, ${y - cursor.offsetHeight / 2}px)`;
+        });
+
+        // Mostrar el puntero cuando el mouse entra en la ventana
+        document.addEventListener("mouseenter", () => {
+          cursor.style.opacity = "1";
+        });
+
+        // Ocultar el puntero cuando el mouse sale de la ventana
+        document.addEventListener("mouseleave", () => {
+          cursor.style.opacity = "0";
+        });
+
+        // Cambiar el puntero al pasar sobre elementos interactivos
+        interactiveElements.forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursor.style.width = "30px"; /* Puntero más pequeño */
+            cursor.style.height = "30px";
+            cursor.style.background = "rgba(255, 255, 255, 0.3)";
+            cursor.style.border = "1px solid rgba(255, 255, 255, 0.6)";
+          });
+
+          el.addEventListener("mouseleave", () => {
+            cursor.style.width = "40px"; /* Tamaño por defecto */
+            cursor.style.height = "40px";
+            cursor.style.background = "rgba(255, 255, 255, 0.2)";
+            cursor.style.border = "2px solid rgba(255, 255, 255, 0.8)";
+          });
+        });
+      }
+    }
+  </script>
+
+  <style>
+    /* Puntero personalizado */
+    #custom-cursor {
+      position: fixed;
+      width: 40px; /* Tamaño inicial más pequeño */
+      height: 40px;
+      border-radius: 50%; /* Forma circular */
+      background: rgba(255, 255, 255, 0.2); /* Fondo translúcido */
+      border: 2px solid rgba(255, 255, 255, 0.8); /* Borde blanco */
+      pointer-events: none; /* Evita interferencia con clics */
+      mix-blend-mode: difference; /* Cambia los colores debajo */
+      backdrop-filter: invert(1) brightness(1.5); /* Cambia los colores dentro del puntero */
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, opacity 0.2s ease, width 0.2s ease, height 0.2s ease, border 0.2s ease;
+      z-index: 9999; /* Siempre encima del contenido */
+      opacity: 1; /* Puntero visible por defecto */
+    }
+
+    /* Esconder el puntero personalizado en pantallas pequeñas */
+    @media (max-width: 768px) {
+      #custom-cursor {
+        display: none;
+      }
+    }
+
+    /* Transición en elementos interactivos */
+    a, button {
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    a:hover, button:hover {
+      transform: scale(1.05); /* Efecto de escala al pasar el cursor */
+    }
+  </style>
 </Layout>

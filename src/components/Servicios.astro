@@ -6,11 +6,11 @@ const { titulo, contenido , imagen} = contenidoServicios;
 
 <section class="Servicios">
   <section class="Izquierda">
-    <div class="titulo-servicios">
+    <div class="titulo-servicios" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600">
       <h1 class="titulo-principal">{titulo.principal}</h1>
       <h2 class="titulo-secundario">{titulo.secundario}</h2>
     </div>
-    <div class="servicios-grid">
+    <div class="servicios-grid" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">
       {Object.entries(contenidoServicios.contenido).map(([key, servicio]) => (
         <div class="servicio-card">
           <img 
@@ -25,7 +25,7 @@ const { titulo, contenido , imagen} = contenidoServicios;
     </div>
   </section>
   <section class="Derecha">
-    <div class="primera-imagen-servicios">
+    <div class="primera-imagen-servicios" data-aos="fade-left">
       <img 
         src={imagen.primero.src} 
         alt={imagen.primero.alt}
@@ -33,7 +33,7 @@ const { titulo, contenido , imagen} = contenidoServicios;
       />
     </div>
     <!-- <div class="contenedor-decorativo"></div> -->
-    <div class="segunda-imagen-servicios">
+    <div class="segunda-imagen-servicios" data-aos="fade-right">
       <img 
         src={imagen.segundo.src} 
         alt={imagen.segundo.alt}
@@ -154,7 +154,7 @@ const { titulo, contenido , imagen} = contenidoServicios;
 
   .second-image{
     position: relative;
-    transform: translate(20px, -80px);
+    transform: translate(10px, -30px);
     width: 430px;
     height: auto;
     z-index: 1;

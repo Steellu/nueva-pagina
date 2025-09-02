@@ -6,7 +6,7 @@ const { titulo, descripcion , clientes} = contenidoClientes;
 
 <section class="Clientes">
     <section class="Izquierda">
-        <div class="contenedor-titulos-clientes">
+        <div class="contenedor-titulos-clientes" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">
             <h3 class="titulo-mini">{titulo.mini}</h3>
             <h1 class="titulo-principal">{titulo.principal}</h1>
             <hr>
@@ -14,7 +14,7 @@ const { titulo, descripcion , clientes} = contenidoClientes;
         </div>
     </section>
     <section class="Derecha">
-        <div class="clientes-grid">
+        <div class="clientes-grid" data-aos="fade-left" data-aos-offset="300" data-aos-easing="ease-in-sine">
             {Object.entries(contenidoClientes.clientes).map(([key, cliente]) => (
                 <div class="clientes-card">
                 <img 
