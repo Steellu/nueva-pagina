@@ -24,14 +24,14 @@ export const contenidoProcesos = [
     id: 4,
     nombre: "Fusion y Vaceado",
     descripcion: "En esta area se realiza el proceso de vaciado del material hacia el molde.",
-    video: "/videos/portada/videoportada.mp4",
+    video: "/videos/procesos/fusion-vaceado.mp4",
     portada: "/imagenes/procesos/fundicion.webp"
   },
   {
     id: 5,
     nombre: "Tratamiento Termico",
     descripcion: "Se realizan Tratamiento de Revenido, Temple Tratamiento de Recocido, Normalizado.",
-    video: "/videos/portada/videoportada.mp4",
+    video: "/videos/procesos/tratamiento-termico.mp4",
     portada: "/imagenes/procesos/tratamiento.webp"
   },
   {
@@ -45,7 +45,7 @@ export const contenidoProcesos = [
     id: 7,
     nombre: "Acabados",
     descripcion: "Las piezas ingresadas al area de acabados son cortados y ensamblados adecuadamente, dependiendo de la fragilidad del tipo de metal.",
-    video: "/videos/portada/videoportada.mp4",
+    video: "/videos/procesos/acabados.mp4",
     portada: "/imagenes/procesos/acabados.webp"
   },
   {

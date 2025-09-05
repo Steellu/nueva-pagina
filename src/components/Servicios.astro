@@ -173,6 +173,30 @@ const { titulo, contenido , imagen} = contenidoServicios;
     z-index: 1;
   }
 
+  @media screen and (max-width: 1270px) {
+    .Servicios {
+      gap: 5rem;
+    }
+    
+    .titulo-principal {
+      font-size: 2rem;
+    }
+
+    .titulo-secundario {
+      font-size: 1.1rem;
+    }
+
+    .first-image{
+      position: relative;
+      transform: translate(-50px, 350px);
+    }
+
+    .second-image{
+      display : none;
+    }
+
+  }
+
   /* Responsivo para tablets */
   @media screen and (max-width: 1024px) {
     .Servicios {
@@ -186,6 +210,11 @@ const { titulo, contenido , imagen} = contenidoServicios;
     .titulo-secundario {
       font-size: 1.1rem;
     }
+
+    .Derecha{
+      display: none;
+    }
+
   }
 
   /* Responsivo para móviles */

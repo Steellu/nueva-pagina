@@ -87,9 +87,9 @@ export const contenidoProductos = {
             ]
         },
         {
-            nombre: "CONO",
+            nombre: "RUEDA",
             categoria: "FERROSO",
-            imagen: "imagenes/productos/conos.png",
+            imagen: "imagenes/productos/rueda.webp",
             descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             detalles: [
                 {
