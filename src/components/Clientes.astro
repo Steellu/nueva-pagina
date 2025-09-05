@@ -13,8 +13,8 @@ const { titulo, descripcion , clientes} = contenidoClientes;
             <p class="descripcion">{descripcion.texto}</p>
         </div>
     </section>
-    <section class="Derecha">
-        <div class="clientes-grid" data-aos="fade-left" data-aos-offset="300" data-aos-easing="ease-in-sine">
+    <section class="Derecha" data-aos="fade-up" data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600">
+        <div class="clientes-grid">
             {Object.entries(contenidoClientes.clientes).map(([key, cliente]) => (
                 <div class="clientes-card">
                 <img 
