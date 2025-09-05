@@ -11,5 +11,8 @@
   "dependencies": {
     "aos": "^2.3.4",
     "astro": "^5.13.3"
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.7"
   }
 }

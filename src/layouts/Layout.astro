@@ -1,4 +1,6 @@
 ---
+import 'aos/dist/aos.css';
+
 const { titulo = 'Steel RV - Fundición de Metales' } = Astro.props;
 ---
 
@@ -14,7 +16,13 @@ const { titulo = 'Steel RV - Fundición de Metales' } = Astro.props;
   </head>
   <body>
     <slot />
-    <script type="module" src="/src/scripts/aos-init.js"></script>
+    <script>
+      import AOS from 'aos';
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
+    </script>
   </body>
 </html>
 
