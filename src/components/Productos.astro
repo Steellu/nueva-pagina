@@ -10,6 +10,13 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         </div>
         
         <div class="slider-container">
+            <!-- Flecha izquierda fuera del slider -->
+            <button class="slider-btn prev external-control" id="prevBtn" aria-label="Producto anterior">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </button>
+
             <div class="slider-wrapper">
                 <div class="productos-slider" id="productosSlider">
                     {contenidoProductos.productos.map((producto) => (
@@ -29,7 +36,6 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
                                         {producto.detalles.map((detalle) => (
                                             <div class="detalle-item">
                                                 <div class="detalle-icono">
-                                                    {/* <i class={detalle.icono}></i> */}
                                                     <img src={detalle.icono} alt="">
                                                 </div>
                                                 <div class="detalle-contenido">
@@ -46,18 +52,12 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
                 </div>
             </div>
             
-            <div class="slider-controls">
-                <button class="slider-btn prev" id="prevBtn" aria-label="Producto anterior">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M15 18l-6-6 6-6"/>
-                    </svg>
-                </button>
-                <button class="slider-btn next" id="nextBtn" aria-label="Siguiente producto">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M9 18l6-6-6-6"/>
-                    </svg>
-                </button>
-            </div>
+            <!-- Flecha derecha fuera del slider -->
+            <button class="slider-btn next external-control" id="nextBtn" aria-label="Siguiente producto">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </button>
             
             <div class="slider-dots" id="sliderDots">
                 {contenidoProductos.productos.map((_, index) => (
@@ -69,7 +69,6 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
 </section>
 
 <style>
-
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
 
     :root {
@@ -78,7 +77,6 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
 
     .productos-destacados {
         padding: 80px 20px;
-        /* background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); */
         background: linear-gradient(to bottom, #0F4E67 0%, #1E9BCD 100%);
         min-height: 60px;
     }
@@ -97,7 +95,6 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         font-family: var(--font-principal);
         font-size: 3.2rem;
         font-weight: 700;
-        /* color: #2c3e50; */
         color: #FFFFFF;
         margin: 0 0 15px 0;
         text-transform: uppercase;
@@ -115,12 +112,16 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
 
     .slider-container {
         position: relative;
+        display: flex;
+        align-items: center;
+        gap: 40px;
     }
 
     .slider-wrapper {
         overflow: hidden;
         border-radius: 20px;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        flex: 1;
     }
 
     .productos-slider {
@@ -132,9 +133,7 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
     .producto-card {
         min-width: 100%;
         aspect-ratio: 16/9;
-        /* background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); */
         background: linear-gradient(to bottom, #092F3E 0%, #187CA4 100%);
-        /* background: #092F3E; */
         border-radius: 20px;
         overflow: hidden;
         position: relative;
@@ -146,7 +145,6 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         height: 100%;
         align-items: center;
         gap: 40px;
-        /* padding: 40px; */
     }
 
     .producto-imagen {
@@ -228,13 +226,10 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
     .detalle-icono {
         width: 40px;
         height: 40px;
-        /* background: rgba(255, 255, 255, 0.1); */
         border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        /* color: #4fc3f7; */
-        /* border: 1px solid rgba(79, 195, 247, 0.3); */
     }
 
     .detalle-icono i {
@@ -256,43 +251,39 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         opacity: 0.8;
     }
 
-    .slider-controls {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        padding: 20 20px;
-        pointer-events: none;
-    }
-
+    /* Controles externos del slider */
     .slider-btn {
-        width: 50px;
-        height: 50px;
-        background: #ff6b35;
-        border: none;
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 107, 53, 0.9);
+        border: 2px solid #ff6b35;
         border-radius: 50%;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #2c3e50;
+        color: white;
         transition: all 0.3s ease;
-        pointer-events: auto;
-        /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
+        backdrop-filter: blur(10px);
+        z-index: 10;
     }
 
     .slider-btn:hover {
-        background: white;
+        background: #ff6b35;
         transform: scale(1.1);
-        color: #ff6b35;
+        box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
     }
 
     .slider-btn:disabled {
-        opacity: 0.5;
+        opacity: 0.3;
         cursor: not-allowed;
         transform: scale(1);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .slider-btn.external-control {
+        flex-shrink: 0;
     }
 
     .slider-dots {
@@ -300,6 +291,10 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         justify-content: center;
         gap: 10px;
         margin-top: 30px;
+        position: absolute;
+        bottom: -60px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .dot {
@@ -307,7 +302,7 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         height: 12px;
         border-radius: 50%;
         border: none;
-        background: #bdc3c7;
+        background: rgba(255, 255, 255, 0.4);
         cursor: pointer;
         transition: all 0.3s ease;
     }
@@ -322,6 +317,15 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
     @media (max-width: 1024px) {
         .productos-destacados {
             padding: 60px 15px;
+        }
+
+        .slider-container {
+            gap: 20px;
+        }
+
+        .slider-btn {
+            width: 50px;
+            height: 50px;
         }
 
         .producto-content {
@@ -343,6 +347,15 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
             padding: 40px 10px;
         }
 
+        /* Ocultar las flechas en móviles */
+        .slider-btn.external-control {
+            display: none;
+        }
+
+        .slider-container {
+            gap: 0;
+        }
+
         .producto-content {
             grid-template-columns: 1fr;
             gap: 20px;
@@ -357,6 +370,7 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
 
         .producto-info {
             order: 2;
+            margin: 0 20px;
         }
 
         .producto-titulo {
@@ -376,13 +390,8 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
             gap: 15px;
         }
 
-        .slider-controls {
-            padding: 10 10px;
-        }
-
-        .slider-btn {
-            width: 40px;
-            height: 40px;
+        .slider-dots {
+            bottom: -50px;
         }
     }
 
@@ -406,6 +415,10 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         .detalle-icono {
             width: 35px;
             height: 35px;
+        }
+
+        .producto-info {
+            margin: 0 15px;
         }
     }
 </style>
@@ -527,4 +540,3 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         startAutoplay();
     });
 </script>
-
