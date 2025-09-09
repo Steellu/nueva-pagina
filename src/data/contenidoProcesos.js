@@ -38,7 +38,7 @@ export const contenidoProcesos = [
     id: 6,
     nombre: "Laboratorio",
     descripcion: "En esta area realizamos mediciones de dureza, analisis de composicion quimica ademas de analisis y metalograficos de aleaciones",
-    video: "/videos/portada/videoportada.mp4",
+    video: "/videos/procesos/laboratorio.mp4",
     portada: "/imagenes/procesos/laboratorio.webp"
   },
   {
