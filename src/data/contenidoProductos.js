@@ -87,9 +87,37 @@ export const contenidoProductos = {
             ]
         },
         {
+            nombre: "CARACOL",
+            categoria: "FERROSO",
+            imagen: "imagenes/productos/caracol.png",
+            descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            detalles: [
+                {
+                    titulo: "Composición Química",
+                    valor: "Al: 92%, Si: 7%, Mg: 0.3%",
+                    icono: "imagenes/productos/composicion-quimica.png"
+                },
+                {
+                    titulo: "Aplicaciones",
+                    valor: "Componentes estructurales o carcasas",
+                    icono: "imagenes/productos/aplicaciones.png"
+                },
+                {
+                    titulo: "Peso",
+                    valor: "85 - 120 Kg",
+                    icono: "imagenes/productos/peso.png"
+                },
+                {
+                    titulo: "Dureza",
+                    valor: "90 - 105 HB",
+                    icono: "imagenes/productos/dureza.png"
+                }
+            ]
+        },
+        {
             nombre: "RUEDA",
             categoria: "FERROSO",
-            imagen: "imagenes/productos/rueda.webp",
+            imagen: "imagenes/productos/rueda.png",
             descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             detalles: [
                 {
@@ -115,9 +143,9 @@ export const contenidoProductos = {
             ]
         },
         {
-            nombre: "CONO",
+            nombre: "TUERCA",
             categoria: "FERROSO",
-            imagen: "imagenes/productos/conos.png",
+            imagen: "imagenes/productos/tuerca.png",
             descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             detalles: [
                 {
@@ -143,9 +171,9 @@ export const contenidoProductos = {
             ]
         },
         {
-            nombre: "CONO",
+            nombre: "CONO RECTO",
             categoria: "FERROSO",
-            imagen: "imagenes/productos/conos.png",
+            imagen: "imagenes/productos/cono-recto.png",
             descripcion: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             detalles: [
                 {

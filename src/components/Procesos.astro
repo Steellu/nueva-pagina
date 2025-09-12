@@ -61,14 +61,14 @@ import { contenidoProcesos } from '../data/contenidoProcesos.js';
       </button>
     </div>
 
-    <div class="indicadores" id="indicadores">
+    <!-- <div class="indicadores" id="indicadores">
       {contenidoProcesos.map((_, index) => (
         <button 
           class={`indicador ${index === 0 ? 'activo' : ''}`}
           data-slide={index}
         ></button>
       ))}
-    </div>
+    </div> -->
   </div>
 </section>
 
@@ -304,6 +304,7 @@ import { contenidoProcesos } from '../data/contenidoProcesos.js';
 }
 
 /* Responsive Design */
+
 @media (max-width: 768px) {
   .seccion-procesos {
     padding: 60px 0;
@@ -335,6 +336,13 @@ import { contenidoProcesos } from '../data/contenidoProcesos.js';
   
   .tarjeta-proceso {
     flex: 0 0 100%;
+    /* flex: 0 0 calc(33.333% - 16px);
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer; */
   }
   
   .contenedor-video {
