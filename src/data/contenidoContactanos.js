@@ -1,6 +1,6 @@
 export const contenidoContactanos = {
     titulo: 'Contáctanos',
-    descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    descripcion: '¿Tienes dudas o necesitas una cotización? Ponte en contacto con nosotros y recibe la atención que tu proyecto merece.',
     datos:{
         email:{
             icono: '/imagenes/contactanos/correo.webp',
