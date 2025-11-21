@@ -1,7 +1,8 @@
 export const contenidoFooter = {
     brochure: {
-        texto: "DESCARGA BROCHURE",
-        url: "/brochure/steel-rv-brochure.pdf",
+        texto: "Trabaja con Nosotros",
+        // url: "/brochure/steel-rv-brochure.pdf",
+        url:"https://pe.indeed.com/cmp/Steel-Jrv-Sac-1",
         icon: "imagenes/footer/icono-brouchere.png",
     },
     logo: {
