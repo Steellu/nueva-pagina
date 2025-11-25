@@ -11,76 +11,47 @@ import { contenidoProcesos } from '../data/contenidoProcesos.js';
       </p>
     </div>
 
-    <div class="slider-contenedor">
-      <button class="boton-nav boton-anterior" id="botonAnterior">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <polyline points="15,18 9,12 15,6"></polyline>
-        </svg>
-      </button>
-
-      <div class="slider-wrapper">
-        <div class="slider-track" id="sliderTrack">
-          {contenidoProcesos.map((proceso) => (
-            <div class="tarjeta-proceso" data-proceso-id={proceso.id}>
-              <div class="contenedor-video">
-                <img 
-                  src={proceso.portada} 
-                  alt={proceso.nombre}
-                  class="imagen-portada"
-                  loading="lazy"
-                />
-                <video 
-                  class="video-proceso"
-                  muted
-                  loop
-                  preload="none"
-                >
-                  <source src={proceso.video} type="video/mp4" />
-                </video>
-                <div class="overlay-reproducir">
-                  <div class="icono-play">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div class="info-tarjeta">
-                <h3 class="nombre-proceso">{proceso.nombre}</h3>
-                <p class="descripcion-proceso">{proceso.descripcion}</p>
-              </div>
+    <div class="grid-procesos">
+      {contenidoProcesos.map((proceso, index) => (
+        <div class="tarjeta-proceso" data-proceso-id={proceso.id} style={`--card-delay: ${index * 50}ms`}>
+          <div class="contenedor-imagen">
+            <div class="imagen-overlay"></div>
+            {proceso.imagenes.map((imagen, imgIndex) => (
+              <img
+                src={imagen}
+                alt={`${proceso.nombre} - imagen ${imgIndex + 1}`}
+                class={`imagen-proceso ${imgIndex === 0 ? 'activa' : ''}`}
+                loading="lazy"
+                data-index={imgIndex}
+              />
+            ))}
+            <div class="indicadores-imagenes">
+              {proceso.imagenes.map((_, imgIndex) => (
+                <div class={`indicador-imagen ${imgIndex === 0 ? 'activo' : ''}`} data-img={imgIndex}></div>
+              ))}
             </div>
-          ))}
+          </div>
+          <div class="info-tarjeta">
+            <div class="numero-proceso">{String(proceso.id).padStart(2, '0')}</div>
+            <h3 class="nombre-proceso">{proceso.nombre}</h3>
+            <p class="descripcion-proceso">{proceso.descripcion}</p>
+            <div class="barra-inferior"></div>
+          </div>
         </div>
-      </div>
-
-      <button class="boton-nav boton-siguiente" id="botonSiguiente">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <polyline points="9,18 15,12 9,6"></polyline>
-        </svg>
-      </button>
-    </div>
-
-    <!-- <div class="indicadores" id="indicadores">
-      {contenidoProcesos.map((_, index) => (
-        <button 
-          class={`indicador ${index === 0 ? 'activo' : ''}`}
-          data-slide={index}
-        ></button>
       ))}
-    </div> -->
+    </div>
   </div>
 </section>
 
 <style>
 .seccion-procesos {
-  padding: 80px 0;
+  padding: 40px 0;
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   overflow: hidden;
 }
 
 .contenedor {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -88,6 +59,18 @@ import { contenidoProcesos } from '../data/contenidoProcesos.js';
 .encabezado-seccion {
   text-align: center;
   margin-bottom: 60px;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .titulo-seccion {
@@ -96,6 +79,7 @@ import { contenidoProcesos } from '../data/contenidoProcesos.js';
   color: #0F4E67;
   margin: 0 0 16px 0;
   font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing: -1px;
 }
 
 .subtitulo-seccion {
@@ -105,488 +89,444 @@ import { contenidoProcesos } from '../data/contenidoProcesos.js';
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  font-weight: 300;
+  letter-spacing: 0.3px;
 }
 
-.slider-contenedor {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.slider-wrapper {
-  flex: 1;
-  overflow: hidden;
-  border-radius: 16px;
-  position: relative;
-}
-
-.slider-track {
-  display: flex;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  gap: 17px;
+.grid-procesos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-bottom: 40px;
 }
 
 .tarjeta-proceso {
-  flex: 0 0 calc(33.333% - 16px);
   background: white;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  animation: slideUp 0.6s ease-out forwards;
+  animation-delay: var(--card-delay, 0ms);
+  opacity: 0;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .tarjeta-proceso:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-12px);
+  box-shadow: 0 20px 60px rgba(15, 78, 103, 0.12);
 }
 
-.contenedor-video {
+.tarjeta-proceso::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(15, 78, 103, 0) 0%, rgba(15, 78, 103, 0.03) 100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.tarjeta-proceso:hover::before {
+  opacity: 1;
+}
+
+.contenedor-imagen {
   position: relative;
   width: 100%;
-  height: 220px;
+  height: 240px;
   overflow: hidden;
-  background: #f1f5f9;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e8eef7 100%);
 }
 
-.imagen-portada,
-.video-proceso {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 0.3s ease;
-}
-
-.video-proceso {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-}
-
-.tarjeta-proceso:hover .video-proceso,
-.tarjeta-proceso.reproduciendo .video-proceso {
-  opacity: 1;
-}
-
-.tarjeta-proceso:hover .imagen-portada,
-.tarjeta-proceso.reproduciendo .imagen-portada {
-  opacity: 0;
-}
-
-.overlay-reproducir {
+.imagen-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(15, 78, 103, 0.1);
-  opacity: 1;
-  transition: opacity 0.3s ease;
+  background: radial-gradient(circle at center, transparent 0%, rgba(15, 78, 103, 0.1) 100%);
+  z-index: 2;
   pointer-events: none;
 }
 
-.tarjeta-proceso:hover .overlay-reproducir,
-.tarjeta-proceso.reproduciendo .overlay-reproducir {
+.imagen-proceso {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.icono-play {
-  width: 60px;
-  height: 60px;
-  background: rgba(15, 78, 103, 0.9);
-  border-radius: 50%;
+.imagen-proceso.activa {
+  opacity: 1;
+}
+
+.indicadores-imagenes {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  backdrop-filter: blur(10px);
-  transform: scale(0.9);
-  transition: transform 0.3s ease;
+  gap: 6px;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
 }
 
-.tarjeta-proceso:hover .icono-play {
-  transform: scale(1);
+.indicador-imagen {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.icono-play svg {
+.indicador-imagen.activo {
+  background: white;
   width: 24px;
-  height: 24px;
-  margin-left: 2px;
+  border-radius: 4px;
 }
 
 .info-tarjeta {
-  padding: 24px;
+  /* padding: 32px 24px 24px; */
+  padding: 10px 20px 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.numero-proceso {
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(15, 78, 103, 0.08);
+  line-height: 1;
+  margin: 0 0 8px 0;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 .nombre-proceso {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: 700;
   color: #0F4E67;
-  margin: 0 0 8px 0;
+  margin: 0 0 12px 0;
   font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing: -0.5px;
 }
 
 .descripcion-proceso {
   font-size: 0.95rem;
   color: #64748b;
-  line-height: 1.5;
-  margin: 0;
+  line-height: 1.7;
+  margin: 0 0 auto 0;
+  font-weight: 400;
 }
 
-.boton-nav {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid #0F4E67;
-  background: white;
-  color: #0F4E67;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 2;
-  flex-shrink: 0;
+.barra-inferior {
+  height: 3px;
+  background: linear-gradient(90deg, #0F4E67 0%, #1e7a96 100%);
+  margin-top: 16px;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.boton-nav:hover {
-  background: #0F4E67;
-  color: white;
-  transform: scale(1.1);
-}
-
-.boton-nav svg {
-  width: 24px;
-  height: 24px;
-  stroke-width: 2.5;
-}
-
-.boton-nav:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: scale(1);
-}
-
-.boton-nav:disabled:hover {
-  background: white;
-  color: #0F4E67;
-}
-
-.indicadores {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 40px;
-}
-
-.indicador {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: none;
-  background: #cbd5e1;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.indicador.activo {
-  background: #0F4E67;
-  transform: scale(1.2);
-}
-
-.indicador:hover {
-  background: #475569;
+.tarjeta-proceso:hover .barra-inferior {
+  transform: scaleX(1);
 }
 
 /* Responsive Design */
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
+  .grid-procesos {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .titulo-seccion {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 900px) {
   .seccion-procesos {
     padding: 60px 0;
   }
-  
-  .contenedor {
-    padding: 0 16px;
-  }
-  
+
   .titulo-seccion {
-    font-size: 2rem;
+    font-size: 2.4rem;
   }
-  
+
   .subtitulo-seccion {
     font-size: 1rem;
   }
-  
+
+  .grid-procesos {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .contenedor-imagen {
+    height: 220px;
+  }
+
+  .numero-proceso {
+    font-size: 2.5rem;
+  }
+
+  .nombre-proceso {
+    font-size: 1.2rem;
+  }
+
+  .info-tarjeta {
+    padding: 28px 22px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contenedor {
+    padding: 0;
+  }
+
   .encabezado-seccion {
     margin-bottom: 40px;
+    padding: 0 20px;
   }
-  
-  .slider-contenedor {
-    gap: 10px;
+
+  .titulo-seccion {
+    font-size: 2rem;
   }
-  
-  .boton-nav {
+
+  .subtitulo-seccion {
+    font-size: 0.95rem;
+  }
+
+  .grid-procesos {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 0;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    -webkit-overflow-scrolling: touch;
+    grid-template-columns: unset;
+  }
+
+  .grid-procesos::before{
+    content: '';
+    flex: 0 0 calc((100vw - 80px) / 2);
+  }
+
+  .grid-procesos::-webkit-scrollbar {
     display: none;
   }
-  
+
   .tarjeta-proceso {
-    flex: 0 0 100%;
-    /* flex: 0 0 calc(33.333% - 16px);
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer; */
+    flex: 0 0 calc(100vw - 40px);
+    scroll-snap-align: center;
+    margin-right: 16px;
+    animation: none;
+    opacity: 1;
   }
-  
-  .contenedor-video {
+
+  .tarjeta-proceso:last-child {
+    margin-right: 20px;
+  }
+
+  .contenedor-imagen {
     height: 200px;
   }
-  
-  .info-tarjeta {
-    padding: 20px;
+
+  .numero-proceso {
+    font-size: 2rem;
   }
-  
+
   .nombre-proceso {
     font-size: 1.1rem;
   }
-  
-  .descripcion-proceso {
-    font-size: 0.9rem;
-  }
-  
-  .indicadores {
-    margin-top: 30px;
-    gap: 8px;
-  }
-  
-  .indicador {
-    width: 10px;
-    height: 10px;
+
+  .info-tarjeta {
+    padding: 24px 20px 20px;
   }
 
-  .slider-track {
-    gap: 0px;
+  .descripcion-proceso {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .indicadores-imagenes {
+    bottom: 10px;
+    padding: 6px 10px;
+  }
+
+  .indicador-imagen {
+    width: 6px;
+    height: 6px;
+  }
+
+  .indicador-imagen.activo {
+    width: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  .contenedor-video {
-    height: 180px;
-  }
-  
-  .info-tarjeta {
-    padding: 16px;
-  }
-  
   .titulo-seccion {
     font-size: 1.8rem;
   }
 
-  .slider-track {
-    gap: 0px;
+  .subtitulo-seccion {
+    font-size: 0.9rem;
   }
 
-/* Tablet */
-@media (min-width: 769px) and (max-width: 1024px) {
+  .contenedor {
+    padding: 0;
+  }
+
+  .encabezado-seccion {
+    padding: 0 16px;
+    margin-bottom: 32px;
+  }
+
   .tarjeta-proceso {
-    flex: 0 0 calc(50% - 12px);
+    flex: 0 0 calc(100vw - 64px);
+    margin-right: 12px;
+  }
+
+  .tarjeta-proceso:last-child {
+    margin-right: 16px;
+  }
+
+  .grid-procesos {
+    padding: 0 16px;
+  }
+
+  .contenedor-imagen {
+    height: 180px;
+  }
+
+  .numero-proceso {
+    font-size: 1.8rem;
+  }
+
+  .nombre-proceso {
+    font-size: 1rem;
+  }
+
+  .info-tarjeta {
+    padding: 20px 16px 16px;
+  }
+
+  .descripcion-proceso {
+    font-size: 0.85rem;
   }
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const sliderTrack = document.getElementById('sliderTrack');
-  const botonAnterior = document.getElementById('botonAnterior');
-  const botonSiguiente = document.getElementById('botonSiguiente');
-  const indicadores = document.querySelectorAll('.indicador');
   const tarjetas = document.querySelectorAll('.tarjeta-proceso');
-  
-  let indiceActual = 0;
-  const totalProcesos = 8;
-  
-  // Variables para responsive
-  let tarjetasPorVista = 3;
-  let esMovil = false;
-  
-  function actualizarTarjetasPorVista() {
-    const anchoVentana = window.innerWidth;
-    if (anchoVentana <= 768) {
-      tarjetasPorVista = 1;
-      esMovil = true;
-    } else if (anchoVentana <= 1024) {
-      tarjetasPorVista = 2;
-      esMovil = false;
-    } else {
-      tarjetasPorVista = 3;
-      esMovil = false;
-    }
-  }
-  
-  function actualizarSlider() {
-    const porcentajeDesplazamiento = -(indiceActual * (100 / tarjetasPorVista));
-    sliderTrack.style.transform = `translateX(${porcentajeDesplazamiento}%)`;
-    
-    // Actualizar indicadores
-    indicadores.forEach((indicador, index) => {
-      indicador.classList.toggle('activo', index === indiceActual);
-    });
-    
-    // Actualizar botones de navegación
-    const maxIndice = totalProcesos - tarjetasPorVista;
-    botonAnterior.disabled = indiceActual === 0;
-    botonSiguiente.disabled = indiceActual >= maxIndice;
-    
-    // En móvil, reproducir el video de la tarjeta visible
-    if (esMovil) {
-      manejarReproduccionMovil();
-    }
-  }
-  
-  function manejarReproduccionMovil() {
-    tarjetas.forEach((tarjeta, index) => {
-      const video = tarjeta.querySelector('.video-proceso');
-      if (index === indiceActual) {
-        tarjeta.classList.add('reproduciendo');
-        if (video) {
-          video.currentTime = 0;
-          video.play().catch(() => {}); // Ignorar errores de autoplay
-        }
-      } else {
-        tarjeta.classList.remove('reproduciendo');
-        if (video) {
-          video.pause();
-          video.currentTime = 0;
-        }
-      }
-    });
-  }
-  
-  function irASlide(indice) {
-    const maxIndice = totalProcesos - tarjetasPorVista;
-    indiceActual = Math.max(0, Math.min(indice, maxIndice));
-    actualizarSlider();
-  }
-  
-  // Event listeners para navegación
-  botonAnterior.addEventListener('click', () => {
-    irASlide(indiceActual - 1);
-  });
-  
-  botonSiguiente.addEventListener('click', () => {
-    irASlide(indiceActual + 1);
-  });
-  
-  // Event listeners para indicadores
-  indicadores.forEach((indicador, index) => {
-    indicador.addEventListener('click', () => {
-      irASlide(index);
-    });
-  });
-  
-  // Hover effect para desktop
+  const esMovil = window.innerWidth <= 768;
+
   tarjetas.forEach((tarjeta) => {
-    const video = tarjeta.querySelector('.video-proceso');
-    const imagen = tarjeta.querySelector('.imagen-portada');
-    
+    const imagenes = tarjeta.querySelectorAll('.imagen-proceso');
+    const indicadores = tarjeta.querySelectorAll('.indicador-imagen');
+    let indiceActual = 0;
+    let intervalo = null;
+
+    function actualizarIndicadores() {
+      indicadores.forEach((ind, index) => {
+        ind.classList.toggle('activo', index === indiceActual);
+      });
+    }
+
+    function cambiarImagen() {
+      imagenes[indiceActual].classList.remove('activa');
+      indiceActual = (indiceActual + 1) % imagenes.length;
+      imagenes[indiceActual].classList.add('activa');
+      actualizarIndicadores();
+    }
+
+    function iniciarRotacion() {
+      if (intervalo) return;
+      intervalo = setInterval(cambiarImagen, 700);
+    }
+
+    function detenerRotacion() {
+      if (intervalo) {
+        clearInterval(intervalo);
+        intervalo = null;
+      }
+      imagenes.forEach(img => img.classList.remove('activa'));
+      imagenes[0].classList.add('activa');
+      indiceActual = 0;
+      actualizarIndicadores();
+    }
+
+    indicadores.forEach((indicador, index) => {
+      indicador.addEventListener('click', () => {
+        if (intervalo) {
+          clearInterval(intervalo);
+          intervalo = null;
+        }
+        imagenes[indiceActual].classList.remove('activa');
+        indiceActual = index;
+        imagenes[indiceActual].classList.add('activa');
+        actualizarIndicadores();
+      });
+    });
+
     if (!esMovil) {
-      tarjeta.addEventListener('mouseenter', () => {
-        if (video && !esMovil) {
-          video.currentTime = 0;
-          video.play().catch(() => {});
-        }
-      });
-      
-      tarjeta.addEventListener('mouseleave', () => {
-        if (video && !esMovil) {
-          video.pause();
-          video.currentTime = 0;
-        }
-      });
+      tarjeta.addEventListener('mouseenter', iniciarRotacion);
+      tarjeta.addEventListener('mouseleave', detenerRotacion);
     }
   });
-  
-  // Responsive handling
-  function manejarRedimensionamiento() {
-    const tarjetasPorVistaAnterior = tarjetasPorVista;
-    const esMovilAnterior = esMovil;
-    
-    actualizarTarjetasPorVista();
-    
-    if (tarjetasPorVistaAnterior !== tarjetasPorVista || esMovilAnterior !== esMovil) {
-      // Resetear videos cuando cambia el modo
-      tarjetas.forEach((tarjeta) => {
-        const video = tarjeta.querySelector('.video-proceso');
-        tarjeta.classList.remove('reproduciendo');
-        if (video) {
-          video.pause();
-          video.currentTime = 0;
-        }
-      });
-      
-      // Ajustar índice si es necesario
-      const maxIndice = totalProcesos - tarjetasPorVista;
-      if (indiceActual > maxIndice) {
-        indiceActual = maxIndice;
-      }
-      
-      actualizarSlider();
-    }
-  }
-  
-  // Touch/Swipe support para móviles
-  let inicioToque = null;
-  let finToque = null;
-  
-  sliderTrack.addEventListener('touchstart', (e) => {
-    inicioToque = e.touches[0].clientX;
-  });
-  
-  sliderTrack.addEventListener('touchmove', (e) => {
-    if (!inicioToque) return;
-    finToque = e.touches[0].clientX;
-  });
-  
-  sliderTrack.addEventListener('touchend', () => {
-    if (!inicioToque || !finToque) return;
-    
-    const diferencia = inicioToque - finToque;
-    const umbralMinimo = 50;
-    
-    if (Math.abs(diferencia) > umbralMinimo) {
-      if (diferencia > 0) {
-        // Swipe izquierda - siguiente
-        irASlide(indiceActual + 1);
-      } else {
-        // Swipe derecha - anterior
-        irASlide(indiceActual - 1);
-      }
-    }
-    
-    inicioToque = null;
-    finToque = null;
-  });
-  
-  // Inicializar
-  actualizarTarjetasPorVista();
-  actualizarSlider();
-  
-  // Event listener para redimensionamiento
-  window.addEventListener('resize', manejarRedimensionamiento);
-  
-  // Auto-play en móvil para la primera tarjeta
+
   if (esMovil) {
-    setTimeout(() => {
-      manejarReproduccionMovil();
-    }, 500);
+    const gridProcesos = document.querySelector('.grid-procesos');
+
+    gridProcesos.addEventListener('scroll', () => {
+      tarjetas.forEach((tarjeta) => {
+        const rect = tarjeta.getBoundingClientRect();
+        const gridRect = gridProcesos.getBoundingClientRect();
+        const centroTarjeta = rect.left + rect.width / 2;
+        const centroGrid = gridRect.left + gridRect.width / 2;
+        const distancia = Math.abs(centroTarjeta - centroGrid);
+
+        if (distancia < rect.width / 3) {
+          tarjeta.style.opacity = '1';
+          tarjeta.style.transform = 'scale(1)';
+        } else {
+          tarjeta.style.opacity = '0.7';
+          tarjeta.style.transform = 'scale(0.95)';
+        }
+      });
+    }, { passive: true });
   }
 });
 </script>
-</section>

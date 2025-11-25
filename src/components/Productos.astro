@@ -6,11 +6,20 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
     <div class="container">
         <div class="header">
             <h2>{contenidoProductos.titulo}</h2>
-            <!-- <p>{contenidoProductos.descripcion}</p> -->
         </div>
-        
+
+        <div class="filtros-container">
+            {contenidoProductos.categorias.map((categoria, index) => (
+                <button
+                    class={`filtro-btn ${index === 0 ? 'active' : ''}`}
+                    data-categoria={categoria}
+                >
+                    {categoria}
+                </button>
+            ))}
+        </div>
+
         <div class="slider-container">
-            <!-- Flecha izquierda fuera del slider -->
             <button class="slider-btn prev external-control" id="prevBtn" aria-label="Producto anterior">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M15 18l-6-6 6-6"/>
@@ -20,7 +29,7 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
             <div class="slider-wrapper">
                 <div class="productos-slider" id="productosSlider">
                     {contenidoProductos.productos.map((producto) => (
-                        <div class="producto-card">
+                        <div class="producto-card" data-categoria={producto.categoria}>
                             <div class="producto-content">
                                 <div class="producto-imagen">
                                     <img src={producto.imagen} alt={producto.nombre} loading="lazy" />
@@ -31,7 +40,7 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
                                     </div>
                                     <h3 class="producto-titulo">{producto.nombre}</h3>
                                     <p class="producto-descripcion">{producto.descripcion}</p>
-                                    
+
                                     <div class="producto-detalles">
                                         {producto.detalles.map((detalle) => (
                                             <div class="detalle-item">
@@ -51,19 +60,14 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
                     ))}
                 </div>
             </div>
-            
-            <!-- Flecha derecha fuera del slider -->
+
             <button class="slider-btn next external-control" id="nextBtn" aria-label="Siguiente producto">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M9 18l6-6-6-6"/>
                 </svg>
             </button>
-            
-            <div class="slider-dots" id="sliderDots">
-                {contenidoProductos.productos.map((_, index) => (
-                    <button class={`dot ${index === 0 ? 'active' : ''}`} data-slide={index}></button>
-                ))}
-            </div>
+
+            <div class="slider-dots" id="sliderDots"></div>
         </div>
     </div>
 </section>
@@ -73,16 +77,14 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
 
     :root {
         --font-principal: 'Roboto Condensed', sans-serif;
-        
-        /* Fluid Typography */
+
         --fs-title: clamp(1.5rem, 4vw, 3.2rem);
         --fs-product-title: clamp(1.2rem, 3vw, 2.5rem);
         --fs-description: clamp(0.85rem, 2vw, 1rem);
         --fs-detail-title: clamp(0.9rem, 2vw, 1.2rem);
         --fs-detail-value: clamp(0.75rem, 1.5vw, 1rem);
-        
-        /* Fluid Spacing */
-        --section-padding: clamp(40px, 8vw, 80px);
+
+        --section-padding: clamp(40px, 8vw, 100px);
         --container-padding: clamp(15px, 3vw, 20px);
         --card-padding: clamp(15px, 3vw, 40px);
         --gap-small: clamp(10px, 2vw, 20px);
@@ -102,7 +104,7 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
 
     .header {
         text-align: center;
-        margin-bottom: clamp(30px, 6vw, 50px);
+        margin-bottom: clamp(20px, 4vw, 30px);
     }
 
     .header h2 {
@@ -110,17 +112,46 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         font-size: var(--fs-title);
         font-weight: 700;
         color: #FFFFFF;
-        margin: 0 0 15px 0;
+        margin: 0;
         letter-spacing: 1px;
     }
 
-    .header p {
+    .filtros-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: clamp(8px, 2vw, 12px);
+        margin-bottom: clamp(30px, 5vw, 40px);
+        padding: 0 10px;
+    }
+
+    .filtro-btn {
         font-family: var(--font-principal);
-        font-size: 1.1rem;
+        font-size: clamp(0.8rem, 2vw, 1rem);
+        font-weight: 600;
+        padding: clamp(8px, 2vw, 12px) clamp(15px, 3vw, 24px);
+        background: rgba(255, 255, 255, 0.1);
         color: #FFFFFF;
-        max-width: 600px;
-        margin: 0 auto;
-        line-height: 1.6;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    .filtro-btn:hover {
+        background: rgba(255, 107, 53, 0.3);
+        border-color: #ff6b35;
+        transform: translateY(-2px);
+    }
+
+    .filtro-btn.active {
+        background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+        border-color: #ff6b35;
+        color: white;
+        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
     }
 
     .slider-container {
@@ -150,8 +181,12 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         border-radius: 20px;
         overflow: hidden;
         position: relative;
-        display: flex;
+        display: none;
         align-items: center;
+    }
+
+    .producto-card.visible {
+        display: flex;
     }
 
     .producto-content {
@@ -278,7 +313,6 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         line-height: 1.3;
     }
 
-    /* Controles externos del slider */
     .slider-btn {
         width: clamp(50px, 8vw, 60px);
         height: clamp(50px, 8vw, 60px);
@@ -342,113 +376,104 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         transform: scale(1.2);
     }
 
-    /* ===== RESPONSIVE BREAKPOINTS ===== */
-
-    /* Large Desktop: 1200px+ */
-    @media (min-width: 1200px) {
-        .producto-detalles {
-            gap: 25px 20px;
-        }
-        
-        .producto-info {
-            gap: 25px;
-        }
-    }
-
-    /* Desktop/Tablet Landscape: 1024px - 1199px */
     @media (min-width: 1024px) and (max-width: 1199px) {
         .slider-container {
             gap: 30px;
         }
-        
+
         .producto-content {
             gap: 30px;
             padding: 30px;
         }
-        
+
         .producto-detalles {
             gap: 15px 10px;
         }
     }
 
-    /* Tablet Portrait: 768px - 1023px */
     @media (min-width: 768px) and (max-width: 1023px) {
         .slider-container {
             gap: 20px;
         }
-        
+
         .slider-btn {
             width: 45px;
             height: 45px;
         }
-        
+
         .slider-btn svg {
             width: 18px;
             height: 18px;
         }
-        
+
         .producto-content {
             gap: 25px;
             padding: 25px;
         }
-        
+
         .producto-detalles {
             gap: 12px 8px;
         }
-        
+
         .detalle-icono {
             width: 32px;
             height: 32px;
         }
-        
-        /* Tablets verticales específicas */
-        @media (min-height: 1000px) {
-            .producto-card {
-                min-height: 500px;
-            }
-            
-            .producto-imagen {
-                min-height: 300px;
-            }
+
+        .filtros-container {
+            gap: 8px;
+        }
+
+        .filtro-btn {
+            font-size: 0.85rem;
+            padding: 8px 16px;
         }
     }
 
-    /* Mobile Landscape: 568px - 767px */
     @media (min-width: 568px) and (max-width: 767px) and (orientation: landscape) {
         .productos-destacados {
             padding: 30px 15px;
         }
-        
+
         .producto-card {
             min-height: 350px;
         }
-        
+
         .producto-content {
             grid-template-columns: 1.2fr 1fr;
             gap: 20px;
             padding: 20px;
         }
-        
+
         .producto-imagen {
             min-height: 200px;
         }
-        
+
         .producto-detalles {
             grid-template-columns: 1fr;
             gap: 8px;
         }
-        
+
         .slider-btn.external-control {
             width: 40px;
             height: 40px;
         }
-        
+
         .slider-container {
             gap: 15px;
         }
+
+        .filtros-container {
+            gap: 6px;
+            margin-bottom: 25px;
+        }
+
+        .filtro-btn {
+            font-size: 0.75rem;
+            padding: 6px 12px;
+        }
     }
 
-    /* Mobile Portrait: 320px - 767px */
     @media (max-width: 767px) {
         .slider-btn.external-control {
             display: none;
@@ -488,14 +513,23 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         .slider-dots {
             bottom: -45px;
         }
-        
+
         .producto-card {
             min-height: auto;
             padding: 15px 0;
         }
+
+        .filtros-container {
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .filtro-btn {
+            font-size: 0.75rem;
+            padding: 8px 14px;
+        }
     }
 
-    /* Small Mobile: 320px - 479px */
     @media (max-width: 479px) {
         .producto-content {
             padding: 15px;
@@ -518,51 +552,33 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
             width: 30px;
             height: 30px;
         }
-        
+
         .slider-dots {
             bottom: -40px;
         }
+
+        .filtros-container {
+            gap: 6px;
+        }
+
+        .filtro-btn {
+            font-size: 0.7rem;
+            padding: 7px 12px;
+        }
     }
 
-    /* Pantallas muy anchas: 1400px+ */
     @media (min-width: 1400px) {
         .container {
             max-width: 1400px;
         }
-        
+
         .producto-content {
             gap: 50px;
             padding: 50px;
         }
-        
+
         .producto-detalles {
             gap: 30px 25px;
-        }
-    }
-
-    /* Pantallas muy altas en tablets */
-    @media (min-width: 768px) and (min-height: 1200px) {
-        .producto-card {
-            min-height: 600px;
-        }
-        
-        .producto-imagen {
-            min-height: 350px;
-        }
-        
-        .producto-info {
-            gap: 30px;
-        }
-    }
-
-    /* Ajustes para pantallas ultra-wide */
-    @media (min-aspect-ratio: 21/9) {
-        .producto-content {
-            grid-template-columns: 1.5fr 1fr;
-        }
-        
-        .producto-imagen img {
-            max-width: 80%;
         }
     }
 </style>
@@ -572,29 +588,71 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         const slider = document.getElementById('productosSlider');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const dots = document.querySelectorAll('.dot');
-        
-        if (!slider || !prevBtn || !nextBtn) return;
+        const dotsContainer = document.getElementById('sliderDots');
+        const filtrosBtn = document.querySelectorAll('.filtro-btn');
+
+        if (!slider || !prevBtn || !nextBtn || !dotsContainer) return;
 
         let currentSlide = 0;
-        const totalSlides = slider.children.length;
+        let currentCategory = 'Todos';
+        let visibleProducts = [];
+        let autoplayInterval;
+
+        function getVisibleProducts() {
+            const allProducts = Array.from(slider.children);
+            if (currentCategory === 'Todos') {
+                return allProducts;
+            }
+            return allProducts.filter(product =>
+                product.dataset.categoria === currentCategory
+            );
+        }
+
+        function updateVisibleProducts() {
+            const allProducts = Array.from(slider.children);
+            allProducts.forEach(product => {
+                product.classList.remove('visible');
+            });
+
+            visibleProducts = getVisibleProducts();
+            visibleProducts.forEach(product => {
+                product.classList.add('visible');
+            });
+
+            currentSlide = 0;
+            updateSlider();
+            updateDots();
+        }
+
+        function updateDots() {
+            dotsContainer.innerHTML = '';
+            visibleProducts.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('dot');
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                }
+                dot.dataset.slide = index;
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+        }
 
         function updateSlider() {
             const translateX = -currentSlide * 100;
             slider.style.transform = `translateX(${translateX}%)`;
-            
-            // Update dots
+
+            const dots = dotsContainer.querySelectorAll('.dot');
             dots.forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentSlide);
             });
-            
-            // Update button states
+
             prevBtn.disabled = currentSlide === 0;
-            nextBtn.disabled = currentSlide === totalSlides - 1;
+            nextBtn.disabled = currentSlide === visibleProducts.length - 1;
         }
 
         function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
+            if (currentSlide < visibleProducts.length - 1) {
                 currentSlide++;
                 updateSlider();
             }
@@ -612,21 +670,25 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
             updateSlider();
         }
 
-        // Event listeners
+        filtrosBtn.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filtrosBtn.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.categoria;
+                updateVisibleProducts();
+                stopAutoplay();
+                startAutoplay();
+            });
+        });
+
         nextBtn.addEventListener('click', nextSlide);
         prevBtn.addEventListener('click', prevSlide);
 
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => goToSlide(index));
-        });
-
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') nextSlide();
             if (e.key === 'ArrowLeft') prevSlide();
         });
 
-        // Enhanced touch/swipe support
         let startX = 0;
         let startY = 0;
         let isDragging = false;
@@ -641,13 +703,12 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
 
         slider.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
-            
+
             const currentX = e.touches[0].clientX;
             const currentY = e.touches[0].clientY;
             const diffX = Math.abs(currentX - startX);
             const diffY = Math.abs(currentY - startY);
-            
-            // Only prevent default if horizontal swipe is more significant
+
             if (diffX > diffY && diffX > 10) {
                 e.preventDefault();
                 hasMoved = true;
@@ -657,11 +718,10 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         slider.addEventListener('touchend', (e) => {
             if (!isDragging || !hasMoved) return;
             isDragging = false;
-            
+
             const endX = e.changedTouches[0].clientX;
             const diffX = startX - endX;
-            
-            // Minimum swipe distance
+
             if (Math.abs(diffX) > 50) {
                 if (diffX > 0) {
                     nextSlide();
@@ -671,7 +731,6 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
             }
         }, { passive: true });
 
-        // Mouse drag support for desktop
         let mouseStartX = 0;
         let isMouseDragging = false;
 
@@ -691,9 +750,9 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
             if (!isMouseDragging) return;
             isMouseDragging = false;
             slider.style.cursor = 'grab';
-            
+
             const diffX = mouseStartX - e.clientX;
-            
+
             if (Math.abs(diffX) > 50) {
                 if (diffX > 0) {
                     nextSlide();
@@ -703,18 +762,9 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
             }
         });
 
-        // Initialize
-        updateSlider();
-
-        // Enhanced auto-play with better pause/resume logic
-        let autoplayInterval;
-        let isAutoplayPaused = false;
-        
         const startAutoplay = () => {
-            if (isAutoplayPaused) return;
-            
             autoplayInterval = setInterval(() => {
-                if (currentSlide === totalSlides - 1) {
+                if (currentSlide === visibleProducts.length - 1) {
                     currentSlide = 0;
                 } else {
                     currentSlide++;
@@ -727,41 +777,18 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
             clearInterval(autoplayInterval);
         };
 
-        const pauseAutoplay = () => {
-            isAutoplayPaused = true;
-            stopAutoplay();
-        };
-
-        const resumeAutoplay = () => {
-            isAutoplayPaused = false;
-            startAutoplay();
-        };
-
-        // Pause autoplay on interaction
         slider.addEventListener('mouseenter', stopAutoplay);
-        slider.addEventListener('mouseleave', () => {
-            if (!isAutoplayPaused) startAutoplay();
-        });
+        slider.addEventListener('mouseleave', startAutoplay);
 
-        // Pause on focus (accessibility)
-        slider.addEventListener('focusin', pauseAutoplay);
-        slider.addEventListener('focusout', resumeAutoplay);
-
-        // Pause when page is not visible
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 stopAutoplay();
-            } else if (!isAutoplayPaused) {
+            } else {
                 startAutoplay();
             }
         });
 
-        // Start autoplay
-        startAutoplay();
-
-        // Responsive behavior adjustments
         const handleResize = () => {
-            // Reset any transforms that might be affected by resize
             updateSlider();
         };
 
@@ -769,5 +796,8 @@ import { contenidoProductos } from '../data/contenidoProductos.js';
         window.addEventListener('orientationchange', () => {
             setTimeout(handleResize, 100);
         });
+
+        updateVisibleProducts();
+        startAutoplay();
     });
 </script>
