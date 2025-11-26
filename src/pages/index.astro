@@ -11,14 +11,14 @@ import Footer from '../components/Footer.astro';
 
 <Layout titulo="Steel RV - Fundición de Metales | Más de 35 años de experiencia">
   <div id="custom-cursor"></div>
-  <Portada />
+  <Portada id="portada"/>
   <!-- <Servicios /> -->
-  <Procesos />
-  <Productos />
+  <Procesos id="procesos"/>
+  <Productos id="productos"/>
   <!-- <Clientes /> -->
-  <Contactanos />
-  <Footer />
-
+  <Contactanos id="contactanos"/>
+  <Footer id="footer"/>
+  
   <script>
     const cursor = document.getElementById("custom-cursor");
 
@@ -100,5 +100,6 @@ import Footer from '../components/Footer.astro';
     a:hover, button:hover {
       transform: scale(1.05); /* Efecto de escala al pasar el cursor */
     }
+
   </style>
 </Layout>
